@@ -1,8 +1,13 @@
+import org.gradle.plugins.ide.eclipse.EclipsePlugin
+import org.gradle.plugins.ide.eclipse.model.Classpath
+import org.gradle.plugins.ide.eclipse.model.Library
+
 plugins {
 	id "java-gradle-plugin"
 	id "maven-publish"
 	id "org.antora"
 	id "org.springframework.boot.conventions"
+	id "org.springframework.boot.docker-test"
 	id "org.springframework.boot.maven-repository"
 	id "org.springframework.boot.optional-dependencies"
 }
@@ -15,56 +20,17 @@ configurations {
 		// Downgrade SLF4J is required for tests to run in Eclipse
 		resolutionStrategy.force("org.slf4j:slf4j-api:1.7.36")
 	}
-	modernGradleRuntimeClasspath {
-		extendsFrom runtimeClasspath
-		canBeConsumed = false
-		canBeResolved = true
-	}
-	modernGradleRuntimeElements {
-		extendsFrom configurations.implementation, configurations.runtimeOnly
-		canBeConsumed = true
-		canBeResolved = false
-		attributes {
-			attribute(Category.CATEGORY_ATTRIBUTE, project.objects.named(Category, Category.LIBRARY))
-			attribute(Bundling.BUNDLING_ATTRIBUTE, project.objects.named(Bundling, Bundling.EXTERNAL))
-			attribute(TargetJvmVersion.TARGET_JVM_VERSION_ATTRIBUTE, 17)
-			attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, project.objects.named(LibraryElements, LibraryElements.JAR))
-			attribute(Usage.USAGE_ATTRIBUTE, project.objects.named(Usage, Usage.JAVA_RUNTIME))
-			attribute(GradlePluginApiVersion.GRADLE_PLUGIN_API_VERSION_ATTRIBUTE, project.objects.named(GradlePluginApiVersion, "8.7"))
-		}
-		outgoing.artifacts.addAll(configurations.runtimeElements.outgoing.artifacts)
-	}
-	runtimeElements {
-		attributes {
-			attribute(GradlePluginApiVersion.GRADLE_PLUGIN_API_VERSION_ATTRIBUTE, project.objects.named(GradlePluginApiVersion, "7.5"))
-		}
-	}
-	all { configuration ->
-		if (configuration.name == 'modernGradleRuntimeClasspath') {
-			return
-		}
-		resolutionStrategy {
-			eachDependency { dependency ->
-				// Downgrade Jackson as Gradle cannot cope with 2.15.0's multi-version
-				// jar files with bytecode in META-INF/versions/19
-				if (dependency.requested.group.startsWith("com.fasterxml.jackson")) {
-					dependency.useVersion("2.14.2")
-				}
-				// Downgrade Spring Framework as Gradle cannot cope with 6.1.0-M1's
-				// multi-version jar files with bytecode in META-INF/versions/21
-				if (dependency.requested.group.equals("org.springframework")) {
-					dependency.useVersion("6.0.10")
-				}
-			}
-		}
-	}
-}
-
-components.java.addVariantsFromConfiguration(configurations.modernGradleRuntimeElements) {
-	mapToMavenScope("runtime")
 }
 
 dependencies {
+	dockerTestImplementation(project(":spring-boot-project:spring-boot-tools:spring-boot-gradle-test-support"))
+	dockerTestImplementation(project(":spring-boot-project:spring-boot-tools:spring-boot-test-support-docker"))
+	dockerTestImplementation(gradleTestKit())
+	dockerTestImplementation("org.assertj:assertj-core")
+	dockerTestImplementation("org.junit.jupiter:junit-jupiter")
+	dockerTestImplementation("org.testcontainers:junit-jupiter")
+	dockerTestImplementation("org.testcontainers:testcontainers")
+
 	implementation(project(":spring-boot-project:spring-boot-tools:spring-boot-buildpack-platform"))
 	implementation(project(":spring-boot-project:spring-boot-tools:spring-boot-loader-tools"))
 	implementation("io.spring.gradle:dependency-management-plugin")
@@ -79,14 +45,12 @@ dependencies {
 		exclude(group: "commons-logging", module: "commons-logging")
 	}
 
-	testImplementation(project(":spring-boot-project:spring-boot-tools:spring-boot-test-support"))
 	testImplementation(project(":spring-boot-project:spring-boot-tools:spring-boot-gradle-test-support"))
+	testImplementation(project(":spring-boot-project:spring-boot-tools:spring-boot-test-support"))
 	testImplementation("com.tngtech.archunit:archunit-junit5:0.22.0")
 	testImplementation("org.assertj:assertj-core")
 	testImplementation("org.junit.jupiter:junit-jupiter")
 	testImplementation("org.mockito:mockito-core")
-	testImplementation("org.testcontainers:junit-jupiter")
-	testImplementation("org.testcontainers:testcontainers")
 }
 
 repositories {
@@ -179,16 +143,17 @@ toolchain {
 	maximumCompatibleJavaVersion = JavaLanguageVersion.of(20)
 }
 
-publishing {
-	publications.matching { it.name == 'pluginMaven' }.configureEach {
-		versionMapping {
-			allVariants {
-				fromResolutionOf(JavaPlugin.RUNTIME_CLASSPATH_CONFIGURATION_NAME)
-			}
-		}
-		versionMapping {
-			variant(GradlePluginApiVersion.GRADLE_PLUGIN_API_VERSION_ATTRIBUTE, project.objects.named(GradlePluginApiVersion, "8.7")) {
-				fromResolutionOf("modernGradleRuntimeClasspath")
+plugins.withType(EclipsePlugin) {
+	eclipse {
+		classpath.file { merger ->
+			merger.whenMerged { content ->
+				if (content instanceof Classpath) {
+					content.entries.each { entry ->
+						if (entry instanceof Library && (entry.path.contains("gradle-api-") || entry.path.contains("groovy-"))) {
+							entry.entryAttributes.remove("test")
+						}
+					}
+				}
 			}
 		}
 	}

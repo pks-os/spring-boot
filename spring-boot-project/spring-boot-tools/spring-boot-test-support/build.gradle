@@ -1,6 +1,7 @@
 plugins {
 	id "java-library"
 	id "org.springframework.boot.conventions"
+	id "org.springframework.boot.optional-dependencies"
 }
 
 description = "Spring Boot Testing Support"
@@ -19,8 +20,6 @@ dependencies {
 	compileOnly("org.mockito:mockito-core")
 	compileOnly("org.springframework:spring-context")
 	compileOnly("org.springframework.data:spring-data-redis")
-	compileOnly("org.testcontainers:cassandra")
-	compileOnly("org.testcontainers:testcontainers")
 
 	implementation("jakarta.inject:jakarta.inject-api")
 	implementation("org.apache.maven.resolver:maven-resolver-connector-basic")
