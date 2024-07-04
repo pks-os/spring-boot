@@ -14,40 +14,30 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.test.autoconfigure.web.servlet.mockmvc;
+package org.springframework.boot.docs.testing.springbootapplications.autoconfiguredspringrestdocs.withmockmvc.assertj;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrint;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.system.CapturedOutput;
-import org.springframework.boot.test.system.OutputCaptureExtension;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 
-/**
- * Tests for {@link WebMvcTest @WebMvcTest} when a specific print option is defined.
- *
- * @author Phillip Webb
- */
-@WebMvcTest
-@WithMockUser
-@AutoConfigureMockMvc(print = MockMvcPrint.NONE)
-@ExtendWith(OutputCaptureExtension.class)
-class WebMvcTestPrintOverrideIntegrationTests {
+@WebMvcTest(UserController.class)
+@AutoConfigureRestDocs
+class MyUserDocumentationTests {
 
 	@Autowired
 	private MockMvcTester mvc;
 
 	@Test
-	void shouldNotPrint(CapturedOutput output) {
-		assertThat(this.mvc.get().uri("/one")).hasStatusOk().hasBodyTextEqualTo("one");
-		assertThat(output).doesNotContain("Request URI = /one");
+	void listUsers() {
+		assertThat(this.mvc.get().uri("/users").accept(MediaType.TEXT_PLAIN)).hasStatusOk()
+			.apply(document("list-users"));
 	}
 
 }
