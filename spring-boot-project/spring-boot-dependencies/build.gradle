@@ -441,10 +441,15 @@ bom {
 			]
 		}
 	}
-	library("GraphQL Java", "22.0") {
+	library("GraphQL Java", "22.1") {
 		prohibit {
 			startsWith(["2018-", "2019-", "2020-", "2021-", "230521-"])
 			because "These are snapshots that we don't want to see"
+		}
+		alignWith {
+			version {
+				from "org.springframework.graphql:spring-graphql"
+			}
 		}
 		group("com.graphql-java") {
 			modules = [
@@ -2207,7 +2212,7 @@ bom {
 			]
 		}
 	}
-	library("Undertow", "2.3.14.Final") {
+	library("Undertow", "2.3.13.Final") {
 		group("io.undertow") {
 			modules = [
 				"undertow-core",
