@@ -84,7 +84,7 @@ bom {
 			releaseNotes("https://activemq.apache.org/components/artemis/download/release-notes-{version}")
 		}
 	}
-	library("AspectJ", "1.9.22") {
+	library("AspectJ", "1.9.22.1") {
 		group("org.aspectj") {
 			modules = [
 				"aspectjrt",
@@ -2203,6 +2203,13 @@ bom {
 		group("org.codehaus.mojo") {
 			plugins = [
 				"versions-maven-plugin"
+			]
+		}
+	}
+	library("WebJars Locator Lite", "1.0.0") {
+		group("org.webjars") {
+			modules = [
+				"webjars-locator-lite"
 			]
 		}
 	}
