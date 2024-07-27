@@ -1780,8 +1780,8 @@ bom {
 		links {
 			site("https://spring.io/projects/spring-boot")
 			github("https://github.com/spring-projects/spring-boot")
-			javadoc("https://docs.spring.io/spring-boot/docs/{version}/api/java")
-			docs("https://docs.spring.io/spring-boot/docs/{version}/reference/htmlsingle")
+			javadoc("https://docs.spring.io/spring-boot/{version}/api/java")
+			docs("https://docs.spring.io/spring-boot/{version}")
 			releaseNotes("https://github.com/spring-projects/spring-boot/releases/tag/v{version}")
 			add("layers-xsd") { version -> "layers-xsd: https://www.springframework.org/schema/boot/layers/layers-%s.%s.xsd"
 				.formatted(version.major(), version.minor()) }
@@ -2114,7 +2114,7 @@ bom {
 			releaseNotes("https://github.com/xerial/sqlite-jdbc/releases/tag/{version}")
 		}
 	}
-	library("Testcontainers", "1.19.8") {
+	library("Testcontainers", "1.20.0") {
 		group("org.testcontainers") {
 			imports = [
 				"testcontainers-bom"
