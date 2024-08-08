@@ -108,7 +108,7 @@ bom {
 			releaseNotes("https://github.com/assertj/assertj/releases/tag/assertj-build-{version}")
 		}
 	}
-	library("Awaitility", "4.2.1") {
+	library("Awaitility", "4.2.2") {
 		group("org.awaitility") {
 			modules = [
 				"awaitility",
@@ -275,7 +275,7 @@ bom {
 			site("https://commons.apache.org/proper/commons-pool")
 		}
 	}
-	library("Couchbase Client", "3.6.2") {
+	library("Couchbase Client", "3.7.1") {
 		group("com.couchbase.client") {
 			modules = [
 				"java-client"
