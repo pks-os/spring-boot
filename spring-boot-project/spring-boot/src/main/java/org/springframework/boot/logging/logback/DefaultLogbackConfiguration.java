@@ -54,20 +54,20 @@ import org.springframework.util.StringUtils;
  */
 class DefaultLogbackConfiguration {
 
-	private static String DEFAULT_CHARSET = Charset.defaultCharset().name();
+	private static final String DEFAULT_CHARSET = Charset.defaultCharset().name();
 
 	private static final String NAME_AND_GROUP = "%esb(){APPLICATION_NAME}%esb{APPLICATION_GROUP}";
 
-	private static String DATETIME = "%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd'T'HH:mm:ss.SSSXXX}}";
+	private static final String DATETIME = "%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd'T'HH:mm:ss.SSSXXX}}";
 
-	private static String DEFAULT_CONSOLE_LOG_PATTERN = faint(DATETIME) + " "
+	private static final String DEFAULT_CONSOLE_LOG_PATTERN = faint(DATETIME) + " "
 			+ colorByLevel("${LOG_LEVEL_PATTERN:-%5p}") + " " + magenta("${PID:-}") + " "
 			+ faint("--- " + NAME_AND_GROUP + "[%15.15t] ${LOG_CORRELATION_PATTERN:-}") + cyan("%-40.40logger{39}")
 			+ " " + faint(":") + " %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}";
 
 	static final String CONSOLE_LOG_PATTERN = "${CONSOLE_LOG_PATTERN:-" + DEFAULT_CONSOLE_LOG_PATTERN;
 
-	private static String DEFAULT_FILE_LOG_PATTERN = DATETIME + " ${LOG_LEVEL_PATTERN:-%5p} ${PID:-} --- "
+	private static final String DEFAULT_FILE_LOG_PATTERN = DATETIME + " ${LOG_LEVEL_PATTERN:-%5p} ${PID:-} --- "
 			+ NAME_AND_GROUP + "[%t] ${LOG_CORRELATION_PATTERN:-}"
 			+ "%-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}";
 
@@ -161,7 +161,7 @@ class DefaultLogbackConfiguration {
 		Charset charset = resolveCharset(config, "${" + type + "_LOG_CHARSET}");
 		String structuredLogFormat = resolve(config, "${" + type + "_LOG_STRUCTURED_FORMAT}");
 		if (StringUtils.hasLength(structuredLogFormat)) {
-			StructuredLogEncoder encoder = createStructuredLogEncoder(config, structuredLogFormat);
+			StructuredLogEncoder encoder = createStructuredLogEncoder(structuredLogFormat);
 			encoder.setCharset(charset);
 			return encoder;
 		}
@@ -171,7 +171,7 @@ class DefaultLogbackConfiguration {
 		return encoder;
 	}
 
-	private StructuredLogEncoder createStructuredLogEncoder(LogbackConfigurator config, String format) {
+	private StructuredLogEncoder createStructuredLogEncoder(String format) {
 		StructuredLogEncoder encoder = new StructuredLogEncoder();
 		encoder.setFormat(format);
 		return encoder;
