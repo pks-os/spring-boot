@@ -136,7 +136,7 @@ bom {
 			releaseNotes("https://github.com/mojohaus/build-helper-maven-plugin/releases/tag/{version}")
 		}
 	}
-	library("Byte Buddy", "1.14.18") {
+	library("Byte Buddy", "1.14.19") {
 		group("net.bytebuddy") {
 			modules = [
 				"byte-buddy",
@@ -256,7 +256,7 @@ bom {
 			site("https://commons.apache.org/proper/commons-pool")
 		}
 	}
-	library("Couchbase Client", "3.7.1") {
+	library("Couchbase Client", "3.7.2") {
 		group("com.couchbase.client") {
 			modules = [
 				"java-client"
@@ -466,7 +466,7 @@ bom {
 			releaseNotes("https://github.com/google/gson/releases/tag/gson-parent-{version}")
 		}
 	}
-	library("H2", "2.3.230") {
+	library("H2", "2.3.232") {
 		group("com.h2database") {
 			modules = [
 				"h2"
@@ -755,7 +755,7 @@ bom {
 				.formatted(version.major(), version.minor()) }
 		}
 	}
-	library("Jakarta Servlet JSP JSTL", "3.0.0") {
+	library("Jakarta Servlet JSP JSTL", "3.0.1") {
 		group("jakarta.servlet.jsp.jstl") {
 			modules = [
 				"jakarta.servlet.jsp.jstl-api"
@@ -935,7 +935,7 @@ bom {
 			]
 		}
 	}
-	library("jOOQ", "3.19.10") {
+	library("jOOQ", "3.19.11") {
 		group("org.jooq") {
 			modules = [
 				"jooq",
@@ -1141,7 +1141,7 @@ bom {
 			releaseNotes("https://github.com/apache/logging-log4j2/releases/tag/rel%2F{version}")
 		}
 	}
-	library("Logback", "1.5.6") {
+	library("Logback", "1.5.7") {
 		group("ch.qos.logback") {
 			modules = [
 				"logback-classic",
@@ -1554,7 +1554,7 @@ bom {
 			releaseNotes("https://pulsar.apache.org/release-notes/versioned/pulsar-{version}")
 		}
 	}
-	library("Pulsar Reactive", "0.5.6") {
+	library("Pulsar Reactive", "0.5.7") {
 		group("org.apache.pulsar") {
 			modules = [
 				"pulsar-client-reactive-adapter",
@@ -1676,7 +1676,7 @@ bom {
 			releaseNotes("https://github.com/rabbitmq/rabbitmq-java-client/releases/tag/v{version}")
 		}
 	}
-	library("Rabbit Stream Client", "0.16.0") {
+	library("Rabbit Stream Client", "0.17.0") {
 		group("com.rabbitmq") {
 			modules = [
 					"stream-client"
@@ -1729,7 +1729,7 @@ bom {
 			releaseNotes("https://github.com/rsocket/rsocket-java/releases/tag/{version}")
 		}
 	}
-	library("RxJava3", "3.1.8") {
+	library("RxJava3", "3.1.9") {
 		group("io.reactivex.rxjava3") {
 			modules = [
 				"rxjava"
@@ -1938,7 +1938,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-batch/releases/tag/v{version}")
 		}
 	}
-	library("Spring Data Bom", "2024.0.3-SNAPSHOT") {
+	library("Spring Data Bom", "2024.0.3") {
 		considerSnapshots()
 		calendarName = "Spring Data Release"
 		group("org.springframework.data") {
@@ -1984,7 +1984,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-graphql/releases/tag/v{version}")
 		}
 	}
-	library("Spring HATEOAS", "2.3.1") {
+	library("Spring HATEOAS", "2.3.2") {
 		considerSnapshots()
 		group("org.springframework.hateoas") {
 			modules = [
@@ -2032,7 +2032,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-kafka/releases/tag/v{version}")
 		}
 	}
-	library("Spring LDAP", "3.2.5-SNAPSHOT") {
+	library("Spring LDAP", "3.2.6") {
 		considerSnapshots()
 		group("org.springframework.ldap") {
 			modules = [
