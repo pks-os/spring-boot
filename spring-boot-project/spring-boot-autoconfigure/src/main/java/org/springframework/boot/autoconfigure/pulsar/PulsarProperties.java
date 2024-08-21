@@ -257,12 +257,18 @@ public class PulsarProperties {
 		 */
 		private List<TypeMapping> typeMappings = new ArrayList<>();
 
+		private final Topic topic = new Topic();
+
 		public List<TypeMapping> getTypeMappings() {
 			return this.typeMappings;
 		}
 
 		public void setTypeMappings(List<TypeMapping> typeMappings) {
 			this.typeMappings = typeMappings;
+		}
+
+		public Topic getTopic() {
+			return this.topic;
 		}
 
 		/**
@@ -297,6 +303,38 @@ public class PulsarProperties {
 				Assert.isTrue(schemaType != SchemaType.NONE, "schemaType 'NONE' not supported");
 				Assert.isTrue(messageKeyType == null || schemaType == SchemaType.KEY_VALUE,
 						"messageKeyType can only be set when schemaType is KEY_VALUE");
+			}
+
+		}
+
+		public static class Topic {
+
+			/**
+			 * Default tenant to use when producing or consuming messages against a
+			 * non-fully-qualified topic URL.
+			 */
+			private String tenant = "public";
+
+			/**
+			 * Default namespace to use when producing or consuming messages against a
+			 * non-fully-qualified topic URL.
+			 */
+			private String namespace = "default";
+
+			public String getTenant() {
+				return this.tenant;
+			}
+
+			public void setTenant(String tenant) {
+				this.tenant = tenant;
+			}
+
+			public String getNamespace() {
+				return this.namespace;
+			}
+
+			public void setNamespace(String namespace) {
+				this.namespace = namespace;
 			}
 
 		}
