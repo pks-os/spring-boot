@@ -28,6 +28,7 @@ import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.springframework.boot.io.ApplicationResourceLoader;
 import org.springframework.core.io.Resource;
@@ -51,7 +52,7 @@ public final class PemContent {
 	private final String text;
 
 	private PemContent(String text) {
-		this.text = text;
+		this.text = text.lines().map(String::trim).collect(Collectors.joining("\n"));
 	}
 
 	/**
