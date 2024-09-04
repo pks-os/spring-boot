@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.springframework.boot.docs.testing.testcontainers.dynamicproperties;
+package org.springframework.boot.docs.testing.testcontainers.dynamicproperties
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
