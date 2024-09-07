@@ -20,6 +20,8 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.boot.actuate.autoconfigure.opentelemetry.otlp.Compression;
+import org.springframework.boot.actuate.autoconfigure.opentelemetry.otlp.Transport;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -43,6 +45,11 @@ public class OtlpProperties {
 	 * retries all must complete within one timeout period.
 	 */
 	private Duration timeout = Duration.ofSeconds(10);
+
+	/**
+	 * Transport used to send the spans.
+	 */
+	private Transport transport = Transport.HTTP;
 
 	/**
 	 * Method used to compress the payload.
@@ -70,6 +77,14 @@ public class OtlpProperties {
 		this.timeout = timeout;
 	}
 
+	public Transport getTransport() {
+		return this.transport;
+	}
+
+	public void setTransport(Transport transport) {
+		this.transport = transport;
+	}
+
 	public Compression getCompression() {
 		return this.compression;
 	}
@@ -84,20 +99,6 @@ public class OtlpProperties {
 
 	public void setHeaders(Map<String, String> headers) {
 		this.headers = headers;
-	}
-
-	enum Compression {
-
-		/**
-		 * Gzip compression.
-		 */
-		GZIP,
-
-		/**
-		 * No compression.
-		 */
-		NONE
-
 	}
 
 }
