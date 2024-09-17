@@ -1606,7 +1606,7 @@ bom {
 			]
 		}
 	}
-	library("R2DBC MariaDB", "1.2.1") {
+	library("R2DBC MariaDB", "1.2.2") {
 		group("org.mariadb") {
 			modules = [
 				"r2dbc-mariadb"
@@ -2100,7 +2100,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-restdocs/releases/tag/v{version}")
 		}
 	}
-	library("Spring Retry", "2.0.8") {
+	library("Spring Retry", "2.0.9") {
 		considerSnapshots()
 		group("org.springframework.retry") {
 			modules = [
