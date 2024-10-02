@@ -9,7 +9,7 @@ jobs:
   build-and-deploy-snapshot:
     name: Build and Deploy Snapshot
     runs-on: ${{ vars.UBUNTU_MEDIUM || 'ubuntu-latest' }}
-    if: ${{ github.repository == 'spring-projects/spring-boot' }}
+    if: ${{ github.repository == 'spring-projects/spring-boot' || github.repository == 'spring-projects/spring-boot-commercial' }}
     steps:
       - name: Check Out Code
         uses: actions/checkout@v4
@@ -19,14 +19,19 @@ jobs:
         with:
           develocity-access-key: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
           publish: true
+          commercial-repository-username: ${{ secrets.COMMERCIAL_ARTIFACTORY_RO_USERNAME }}
+          commercial-repository-password: ${{ secrets.COMMERCIAL_ARTIFACTORY_RO_PASSWORD }}
+          commercial-release-repository-url: ${{ vars.COMMERCIAL_RELEASE_REPO_URL }}
+          commercial-snapshot-repository-url: ${{ vars.COMMERCIAL_SNAPSHOT_REPO_URL }}
       - name: Deploy
         uses: spring-io/artifactory-deploy-action@26bbe925a75f4f863e1e529e85be2d0093cac116 # v0.0.1
         with:
-          uri: 'https://repo.spring.io'
-          username: ${{ secrets.ARTIFACTORY_USERNAME }}
-          password: ${{ secrets.ARTIFACTORY_PASSWORD }}
-          build-name: 'spring-boot-3.4.x'
-          repository: 'libs-snapshot-local'
+          uri: ${{ vars.COMMERCIAL_DEPLOY_REPO_URL || 'https://repo.spring.io' }}
+          username: ${{ vars.COMMERCIAL && secrets.COMMERCIAL_ARTIFACTORY_USERNAME || secrets.ARTIFACTORY_USERNAME }}
+          password: ${{ vars.COMMERCIAL && secrets.COMMERCIAL_ARTIFACTORY_PASSWORD || secrets.ARTIFACTORY_PASSWORD }}
+          build-name: ${{ vars.COMMERCIAL && format('spring-boot-commercial-{0}', github.ref_name) || format('spring-boot-{0}', github.ref_name) }}
+          repository: ${{ vars.COMMERCIAL && 'spring-commercial-snapshot-local' || 'libs-snapshot-local' }}
+          project: ${{ vars.COMMERCIAL && 'spring' }}
           folder: 'deployment-repository'
           signing-key: ${{ secrets.GPG_PRIVATE_KEY }}
           signing-passphrase: ${{ secrets.GPG_PASSPHRASE }}
@@ -57,8 +62,10 @@ jobs:
     uses: ./.github/workflows/verify.yml
     secrets:
       google-chat-webhook-url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_URL }}
-      repository-password: ${{ secrets.ARTIFACTORY_PASSWORD }}
-      repository-username: ${{ secrets.ARTIFACTORY_USERNAME }}
+      opensource-repository-password: ${{ secrets.ARTIFACTORY_PASSWORD }}
+      opensource-repository-username: ${{ secrets.ARTIFACTORY_USERNAME }}
+      commercial-repository-password: ${{ secrets.COMMERCIAL_ARTIFACTORY_RO_PASSWORD }}
+      commercial-repository-username: ${{ secrets.COMMERCIAL_ARTIFACTORY_RO_USERNAME }}
       token: ${{ secrets.GH_ACTIONS_REPO_TOKEN }}
     with:
       version: ${{ needs.build-and-deploy-snapshot.outputs.version }}
