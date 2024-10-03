@@ -137,17 +137,11 @@ public class BasicJsonParser extends AbstractJsonParser {
 				inEscape = false;
 				continue;
 			}
-			if (current == '{') {
-				inObject++;
-			}
-			if (current == '}') {
-				inObject--;
-			}
-			if (current == '[') {
-				inList++;
-			}
-			if (current == ']') {
-				inList--;
+			switch (current) {
+				case '{' -> inObject++;
+				case '}' -> inObject--;
+				case '[' -> inList++;
+				case ']' -> inList--;
 			}
 			if (current == '"') {
 				inValue = !inValue;
