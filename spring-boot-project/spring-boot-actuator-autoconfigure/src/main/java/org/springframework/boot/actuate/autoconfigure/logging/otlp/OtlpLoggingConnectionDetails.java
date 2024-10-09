@@ -14,24 +14,23 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.actuate.autoconfigure.opentelemetry.otlp;
+package org.springframework.boot.actuate.autoconfigure.logging.otlp;
+
+import org.springframework.boot.autoconfigure.service.connection.ConnectionDetails;
 
 /**
- * Algorithm used to compress OTLP data.
+ * Details required to establish a connection to an OpenTelemetry logging service.
  *
- * @author Moritz Halbritter
+ * @author Toshiaki Maki
  * @since 3.4.0
  */
-public enum Compression {
+public interface OtlpLoggingConnectionDetails extends ConnectionDetails {
 
 	/**
-	 * Gzip compression.
+	 * Address to where logs will be published.
+	 * @param transport the transport to use
+	 * @return the address to where logs will be published
 	 */
-	GZIP,
-
-	/**
-	 * No compression.
-	 */
-	NONE
+	String getUrl(Transport transport);
 
 }

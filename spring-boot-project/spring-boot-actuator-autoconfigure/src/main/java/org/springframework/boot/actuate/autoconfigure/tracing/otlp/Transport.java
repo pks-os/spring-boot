@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.actuate.autoconfigure.opentelemetry.otlp;
+package org.springframework.boot.actuate.autoconfigure.tracing.otlp;
 
 /**
  * Transport used to send OTLP data.
