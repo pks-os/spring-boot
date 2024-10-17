@@ -1305,7 +1305,7 @@ bom {
 			]
 		}
 	}
-	library("Micrometer", "1.14.0-SNAPSHOT") {
+	library("Micrometer", "1.14.0-RC1") {
 		considerSnapshots()
 		group("io.micrometer") {
 			modules = [
@@ -1325,7 +1325,7 @@ bom {
 			releaseNotes("https://github.com/micrometer-metrics/micrometer/releases/tag/v{version}")
 		}
 	}
-	library("Micrometer Tracing", "1.4.0-SNAPSHOT") {
+	library("Micrometer Tracing", "1.4.0-RC1") {
 		considerSnapshots()
 		group("io.micrometer") {
 			imports = [
@@ -1699,7 +1699,7 @@ bom {
 			]
 		}
 	}
-	library("Reactor Bom", "2024.0.0-SNAPSHOT") {
+	library("Reactor Bom", "2024.0.0-RC1") {
 		considerSnapshots()
 		calendarName = "Reactor"
 		group("io.projectreactor") {
