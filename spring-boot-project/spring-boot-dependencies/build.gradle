@@ -135,7 +135,7 @@ bom {
 			releaseNotes("https://github.com/mojohaus/build-helper-maven-plugin/releases/tag/{version}")
 		}
 	}
-	library("Byte Buddy", "1.15.4") {
+	library("Byte Buddy", "1.15.5") {
 		group("net.bytebuddy") {
 			modules = [
 				"byte-buddy",
@@ -333,7 +333,7 @@ bom {
 			releaseNotes("https://github.com/ehcache/ehcache3/releases/tag/v{version}")
 		}
 	}
-	library("Elasticsearch Client", "8.15.2") {
+	library("Elasticsearch Client", "8.15.3") {
 		group("org.elasticsearch.client") {
 			modules = [
 				"elasticsearch-rest-client" {
@@ -353,7 +353,7 @@ bom {
 			releaseNotes("https://www.elastic.co/guide/en/elasticsearch/reference/current/release-notes-{version}.html")
 		}
 	}
-	library("Flyway", "10.19.0") {
+	library("Flyway", "10.20.0") {
 		group("org.flywaydb") {
 			modules = [
 				"flyway-commandline",
@@ -575,7 +575,7 @@ bom {
 			]
 		}
 	}
-	library("HttpClient5", "5.3.1") {
+	library("HttpClient5", "5.4") {
 		group("org.apache.httpcomponents.client5") {
 			modules = [
 				"httpclient5",
@@ -858,7 +858,7 @@ bom {
 			]
 		}
 	}
-	library("Jaybird", "5.0.5.java11") {
+	library("Jaybird", "5.0.6.java11") {
 		prohibit {
 			endsWith ".java8"
 			because "we use the .java11 version"
@@ -1146,7 +1146,7 @@ bom {
 			releaseNotes("https://github.com/apache/logging-log4j2/releases/tag/rel%2F{version}")
 		}
 	}
-	library("Logback", "1.5.10") {
+	library("Logback", "1.5.11") {
 		group("ch.qos.logback") {
 			modules = [
 				"logback-classic",
@@ -1387,7 +1387,7 @@ bom {
 				.formatted(version.toString().replace(".jre11", "")) }
 		}
 	}
-	library("MySQL", "9.0.0") {
+	library("MySQL", "9.1.0") {
 		group("com.mysql") {
 			modules = [
 				"mysql-connector-j" {
@@ -1629,7 +1629,7 @@ bom {
 			]
 		}
 	}
-	library("R2DBC Pool", "1.0.1.RELEASE") {
+	library("R2DBC Pool", "1.0.2.RELEASE") {
 		considerSnapshots()
 		group("io.r2dbc") {
 			modules = [
@@ -1641,7 +1641,7 @@ bom {
 			releaseNotes("https://github.com/r2dbc/r2dbc-pool/releases/tag/v{version}")
 		}
 	}
-	library("R2DBC Postgresql", "1.0.6.RELEASE") {
+	library("R2DBC Postgresql", "1.0.7.RELEASE") {
 		considerSnapshots()
 		group("org.postgresql") {
 			modules = [
@@ -1681,7 +1681,7 @@ bom {
 			releaseNotes("https://github.com/rabbitmq/rabbitmq-java-client/releases/tag/v{version}")
 		}
 	}
-	library("Rabbit Stream Client", "0.17.0") {
+	library("Rabbit Stream Client", "0.18.0") {
 		group("com.rabbitmq") {
 			modules = [
 					"stream-client"
@@ -2085,7 +2085,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-pulsar/releases/tag/v{version}")
 		}
 	}
-	library("Spring RESTDocs", "3.0.1") {
+	library("Spring RESTDocs", "3.0.2-SNAPSHOT") {
 		considerSnapshots()
 		group("org.springframework.restdocs") {
 			imports = [
@@ -2263,7 +2263,7 @@ bom {
 			]
 		}
 	}
-	library("Undertow", "2.3.17.Final") {
+	library("Undertow", "2.3.18.Final") {
 		group("io.undertow") {
 			modules = [
 				"undertow-core",
