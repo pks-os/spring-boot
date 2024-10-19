@@ -27,6 +27,7 @@ import org.springframework.aot.hint.predicate.RuntimeHintsPredicates;
 import org.springframework.http.client.AbstractClientHttpRequestFactoryWrapper;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.JettyClientHttpRequestFactory;
+import org.springframework.http.client.ReactorClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.util.ReflectionUtils;
 
@@ -62,24 +63,6 @@ class ClientHttpRequestFactoriesRuntimeHintsTests {
 	}
 
 	@Test
-	@Deprecated(since = "3.2.0")
-	@SuppressWarnings("removal")
-	void shouldRegisterOkHttpHints() {
-		RuntimeHints hints = new RuntimeHints();
-		new ClientHttpRequestFactoriesRuntimeHints().registerHints(hints, getClass().getClassLoader());
-		ReflectionHintsPredicates reflection = RuntimeHintsPredicates.reflection();
-		assertThat(reflection.onMethod(method(org.springframework.http.client.OkHttp3ClientHttpRequestFactory.class,
-				"setConnectTimeout", int.class)))
-			.accepts(hints);
-		assertThat(reflection.onMethod(method(org.springframework.http.client.OkHttp3ClientHttpRequestFactory.class,
-				"setReadTimeout", int.class)))
-			.accepts(hints);
-		assertThat(hints.reflection()
-			.getTypeHint(org.springframework.http.client.OkHttp3ClientHttpRequestFactory.class)
-			.methods()).hasSize(2);
-	}
-
-	@Test
 	void shouldRegisterJettyClientHints() {
 		RuntimeHints hints = new RuntimeHints();
 		new ClientHttpRequestFactoriesRuntimeHints().registerHints(hints, getClass().getClassLoader());
@@ -87,6 +70,17 @@ class ClientHttpRequestFactoriesRuntimeHintsTests {
 		assertThat(reflection.onMethod(method(JettyClientHttpRequestFactory.class, "setConnectTimeout", int.class)))
 			.accepts(hints);
 		assertThat(reflection.onMethod(method(JettyClientHttpRequestFactory.class, "setReadTimeout", long.class)))
+			.accepts(hints);
+	}
+
+	@Test
+	void shouldRegisterReactorHints() {
+		RuntimeHints hints = new RuntimeHints();
+		new ClientHttpRequestFactoriesRuntimeHints().registerHints(hints, getClass().getClassLoader());
+		ReflectionHintsPredicates reflection = RuntimeHintsPredicates.reflection();
+		assertThat(reflection.onMethod(method(ReactorClientHttpRequestFactory.class, "setConnectTimeout", int.class)))
+			.accepts(hints);
+		assertThat(reflection.onMethod(method(ReactorClientHttpRequestFactory.class, "setReadTimeout", long.class)))
 			.accepts(hints);
 	}
 

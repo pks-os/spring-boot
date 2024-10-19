@@ -27,11 +27,10 @@ import java.util.function.Supplier;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
-import okhttp3.OkHttpClient;
+import io.netty.handler.ssl.SslContextBuilder;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
@@ -42,19 +41,23 @@ import org.apache.hc.core5.http.io.SocketConfig;
 import org.eclipse.jetty.client.transport.HttpClientTransportDynamic;
 import org.eclipse.jetty.io.ClientConnector;
 import org.eclipse.jetty.util.ssl.SslContextFactory;
+import reactor.netty.tcp.SslProvider.SslContextSpec;
 
 import org.springframework.boot.context.properties.PropertyMapper;
 import org.springframework.boot.ssl.SslBundle;
+import org.springframework.boot.ssl.SslManagerBundle;
 import org.springframework.boot.ssl.SslOptions;
 import org.springframework.http.client.AbstractClientHttpRequestFactoryWrapper;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.http.client.JettyClientHttpRequestFactory;
+import org.springframework.http.client.ReactorClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.util.function.ThrowingConsumer;
 
 /**
  * Utility class that can be used to create {@link ClientHttpRequestFactory} instances
@@ -71,13 +74,13 @@ public final class ClientHttpRequestFactories {
 
 	private static final boolean APACHE_HTTP_CLIENT_PRESENT = ClassUtils.isPresent(APACHE_HTTP_CLIENT_CLASS, null);
 
-	static final String OKHTTP_CLIENT_CLASS = "okhttp3.OkHttpClient";
-
-	private static final boolean OKHTTP_CLIENT_PRESENT = ClassUtils.isPresent(OKHTTP_CLIENT_CLASS, null);
-
 	static final String JETTY_CLIENT_CLASS = "org.eclipse.jetty.client.HttpClient";
 
 	private static final boolean JETTY_CLIENT_PRESENT = ClassUtils.isPresent(JETTY_CLIENT_CLASS, null);
+
+	static final String REACTOR_CLIENT_CLASS = "reactor.netty.http.client.HttpClient";
+
+	private static final boolean REACTOR_CLIENT_PRESENT = ClassUtils.isPresent(REACTOR_CLIENT_CLASS, null);
 
 	private ClientHttpRequestFactories() {
 	}
@@ -89,14 +92,12 @@ public final class ClientHttpRequestFactories {
 	 * <ol>
 	 * <li>{@link HttpComponentsClientHttpRequestFactory}</li>
 	 * <li>{@link JettyClientHttpRequestFactory}</li>
-	 * <li>{@link org.springframework.http.client.OkHttp3ClientHttpRequestFactory
-	 * OkHttp3ClientHttpRequestFactory} (deprecated)</li>
+	 * <li>{@link ReactorClientHttpRequestFactory}</li>
 	 * <li>{@link SimpleClientHttpRequestFactory}</li>
 	 * </ol>
 	 * @param settings the settings to apply
 	 * @return a new {@link ClientHttpRequestFactory}
 	 */
-	@SuppressWarnings("removal")
 	public static ClientHttpRequestFactory get(ClientHttpRequestFactorySettings settings) {
 		Assert.notNull(settings, "Settings must not be null");
 		if (APACHE_HTTP_CLIENT_PRESENT) {
@@ -105,8 +106,8 @@ public final class ClientHttpRequestFactories {
 		if (JETTY_CLIENT_PRESENT) {
 			return Jetty.get(settings);
 		}
-		if (OKHTTP_CLIENT_PRESENT) {
-			return OkHttp.get(settings);
+		if (REACTOR_CLIENT_PRESENT) {
+			return Reactor.get(settings);
 		}
 		return Simple.get(settings);
 	}
@@ -120,8 +121,7 @@ public final class ClientHttpRequestFactories {
 	 * <li>{@link HttpComponentsClientHttpRequestFactory}</li>
 	 * <li>{@link JdkClientHttpRequestFactory}</li>
 	 * <li>{@link JettyClientHttpRequestFactory}</li>
-	 * <li>{@link org.springframework.http.client.OkHttp3ClientHttpRequestFactory
-	 * OkHttp3ClientHttpRequestFactory} (deprecated)</li>
+	 * <li>{@link ReactorClientHttpRequestFactory}</li>
 	 * <li>{@link SimpleClientHttpRequestFactory}</li>
 	 * </ul>
 	 * A {@code requestFactoryType} of {@link ClientHttpRequestFactory} is equivalent to
@@ -131,7 +131,7 @@ public final class ClientHttpRequestFactories {
 	 * @param settings the settings to apply
 	 * @return a new {@link ClientHttpRequestFactory} instance
 	 */
-	@SuppressWarnings({ "unchecked", "removal" })
+	@SuppressWarnings("unchecked")
 	public static <T extends ClientHttpRequestFactory> T get(Class<T> requestFactoryType,
 			ClientHttpRequestFactorySettings settings) {
 		Assert.notNull(settings, "Settings must not be null");
@@ -144,14 +144,14 @@ public final class ClientHttpRequestFactories {
 		if (requestFactoryType == JettyClientHttpRequestFactory.class) {
 			return (T) Jetty.get(settings);
 		}
+		if (requestFactoryType == ReactorClientHttpRequestFactory.class) {
+			return (T) Reactor.get(settings);
+		}
 		if (requestFactoryType == JdkClientHttpRequestFactory.class) {
 			return (T) Jdk.get(settings);
 		}
 		if (requestFactoryType == SimpleClientHttpRequestFactory.class) {
 			return (T) Simple.get(settings);
-		}
-		if (requestFactoryType == org.springframework.http.client.OkHttp3ClientHttpRequestFactory.class) {
-			return (T) OkHttp.get(settings);
 		}
 		return get(() -> createRequestFactory(requestFactoryType), settings);
 	}
@@ -220,44 +220,6 @@ public final class ClientHttpRequestFactories {
 	}
 
 	/**
-	 * Support for
-	 * {@link org.springframework.http.client.OkHttp3ClientHttpRequestFactory}.
-	 *
-	 * @deprecated since 3.2.0 for removal in 3.4.0
-	 */
-	@Deprecated(since = "3.2.0", forRemoval = true)
-	@SuppressWarnings("removal")
-	static class OkHttp {
-
-		static org.springframework.http.client.OkHttp3ClientHttpRequestFactory get(
-				ClientHttpRequestFactorySettings settings) {
-			org.springframework.http.client.OkHttp3ClientHttpRequestFactory requestFactory = createRequestFactory(
-					settings.sslBundle());
-			PropertyMapper map = PropertyMapper.get().alwaysApplyingWhenNonNull();
-			map.from(settings::connectTimeout).asInt(Duration::toMillis).to(requestFactory::setConnectTimeout);
-			map.from(settings::readTimeout).asInt(Duration::toMillis).to(requestFactory::setReadTimeout);
-			return requestFactory;
-		}
-
-		private static org.springframework.http.client.OkHttp3ClientHttpRequestFactory createRequestFactory(
-				SslBundle sslBundle) {
-			if (sslBundle != null) {
-				Assert.state(!sslBundle.getOptions().isSpecified(), "SSL Options cannot be specified with OkHttp");
-				SSLSocketFactory socketFactory = sslBundle.createSslContext().getSocketFactory();
-				TrustManager[] trustManagers = sslBundle.getManagers().getTrustManagers();
-				Assert.state(trustManagers.length == 1,
-						"Trust material must be provided in the SSL bundle for OkHttp3ClientHttpRequestFactory");
-				OkHttpClient client = new OkHttpClient.Builder()
-					.sslSocketFactory(socketFactory, (X509TrustManager) trustManagers[0])
-					.build();
-				return new org.springframework.http.client.OkHttp3ClientHttpRequestFactory(client);
-			}
-			return new org.springframework.http.client.OkHttp3ClientHttpRequestFactory();
-		}
-
-	}
-
-	/**
 	 * Support for {@link JettyClientHttpRequestFactory}.
 	 */
 	static class Jetty {
@@ -282,6 +244,41 @@ public final class ClientHttpRequestFactories {
 				return new JettyClientHttpRequestFactory(httpClient);
 			}
 			return new JettyClientHttpRequestFactory();
+		}
+
+	}
+
+	/**
+	 * Support for {@link ReactorClientHttpRequestFactory}.
+	 */
+	static class Reactor {
+
+		static ReactorClientHttpRequestFactory get(ClientHttpRequestFactorySettings settings) {
+			ReactorClientHttpRequestFactory requestFactory = createRequestFactory(settings.sslBundle());
+			PropertyMapper map = PropertyMapper.get().alwaysApplyingWhenNonNull();
+			map.from(settings::connectTimeout).asInt(Duration::toMillis).to(requestFactory::setConnectTimeout);
+			map.from(settings::readTimeout).asInt(Duration::toMillis).to(requestFactory::setReadTimeout);
+			return requestFactory;
+		}
+
+		private static ReactorClientHttpRequestFactory createRequestFactory(SslBundle sslBundle) {
+			if (sslBundle != null) {
+				reactor.netty.http.client.HttpClient httpClient = reactor.netty.http.client.HttpClient.create()
+					.secure((ThrowingConsumer.of((spec) -> configureSsl(spec, sslBundle))));
+				return new ReactorClientHttpRequestFactory(httpClient);
+			}
+			return new ReactorClientHttpRequestFactory();
+		}
+
+		private static void configureSsl(SslContextSpec spec, SslBundle sslBundle) throws SSLException {
+			SslOptions options = sslBundle.getOptions();
+			SslManagerBundle managers = sslBundle.getManagers();
+			SslContextBuilder builder = SslContextBuilder.forClient()
+				.keyManager(managers.getKeyManagerFactory())
+				.trustManager(managers.getTrustManagerFactory())
+				.ciphers(SslOptions.asSet(options.getCiphers()))
+				.protocols(options.getEnabledProtocols());
+			spec.sslContext(builder.build());
 		}
 
 	}
