@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.test.autoconfigure.json.app;
+package org.springframework.boot.build.antora;
 
-import java.util.Date;
-import java.util.UUID;
+import org.gradle.api.Project;
 
 /**
- * Example object to read/write as JSON through {@link ExampleJsonComponent}.
+ * A contribution of aggregate content.
  *
- * @author Phillip Webb
- * @param value the value
- * @param date a date
- * @param uuid a uuid
+ * @author Andy Wilkinson
  */
-public record ExampleCustomObject(String value, Date date, UUID uuid) {
+class AggregateContentContribution extends ConsumableContentContribution {
+
+	protected AggregateContentContribution(Project project, String name) {
+		super(project, "aggregate", name);
+	}
 
 }
