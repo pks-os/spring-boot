@@ -1169,7 +1169,7 @@ bom {
 			releaseNotes("https://github.com/Kotlin/kotlinx.serialization/releases/tag/v{version}")
 		}
 	}
-	library("Lettuce", "6.4.0.RELEASE") {
+	library("Lettuce", "6.4.1.RELEASE") {
 		group("io.lettuce") {
 			modules = [
 				"lettuce-core"
@@ -1223,7 +1223,7 @@ bom {
 			javadoc("https://logback.qos.ch/apidocs")
 		}
 	}
-	library("Lombok", "1.18.34") {
+	library("Lombok", "1.18.36") {
 		group("org.projectlombok") {
 			modules = [
 				"lombok"
@@ -1420,7 +1420,7 @@ bom {
 			releaseNotes("https://github.com/apache/maven-war-plugin/releases/tag/maven-war-plugin-{version}")
 		}
 	}
-	library("Micrometer", "1.14.0") {
+	library("Micrometer", "1.14.1") {
 		considerSnapshots()
 		group("io.micrometer") {
 			modules = [
@@ -1673,7 +1673,7 @@ bom {
 			releaseNotes("https://pulsar.apache.org/release-notes/versioned/pulsar-{version}")
 		}
 	}
-	library("Pulsar Reactive", "0.5.8") {
+	library("Pulsar Reactive", "0.5.9") {
 		group("org.apache.pulsar") {
 			modules = [
 				"pulsar-client-reactive-adapter",
@@ -2085,7 +2085,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-batch/releases/tag/v{version}")
 		}
 	}
-	library("Spring Data Bom", "2024.1.0-SNAPSHOT") {
+	library("Spring Data Bom", "2024.1.0") {
 		considerSnapshots()
 		calendarName = "Spring Data Release"
 		group("org.springframework.data") {
@@ -2137,7 +2137,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-graphql/releases/tag/v{version}")
 		}
 	}
-	library("Spring HATEOAS", "2.4.0-SNAPSHOT") {
+	library("Spring HATEOAS", "2.4.0") {
 		considerSnapshots()
 		group("org.springframework.hateoas") {
 			modules = [
@@ -2189,7 +2189,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-kafka/releases/tag/v{version}")
 		}
 	}
-	library("Spring LDAP", "3.2.7") {
+	library("Spring LDAP", "3.2.8") {
 		considerSnapshots()
 		group("org.springframework.ldap") {
 			modules = [
