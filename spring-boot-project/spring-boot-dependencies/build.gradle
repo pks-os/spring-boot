@@ -2034,7 +2034,7 @@ bom {
 			]
 		}
 	}
-	library("Spring AMQP", "3.2.0-SNAPSHOT") {
+	library("Spring AMQP", "3.2.0") {
 		considerSnapshots()
 		group("org.springframework.amqp") {
 			imports = [
@@ -2171,7 +2171,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-integration/releases/tag/v{version}")
 		}
 	}
-	library("Spring Kafka", "3.3.0-SNAPSHOT") {
+	library("Spring Kafka", "3.3.0") {
 		considerSnapshots()
 		group("org.springframework.kafka") {
 			modules = [
@@ -2209,7 +2209,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-ldap/releases/tag/{version}")
 		}
 	}
-	library("Spring Pulsar", "1.2.0-SNAPSHOT") {
+	library("Spring Pulsar", "1.2.0") {
 		considerSnapshots()
 		group("org.springframework.pulsar") {
 			imports = [
@@ -2226,7 +2226,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-pulsar/releases/tag/v{version}")
 		}
 	}
-	library("Spring RESTDocs", "3.0.3-SNAPSHOT") {
+	library("Spring RESTDocs", "3.0.3") {
 		considerSnapshots()
 		group("org.springframework.restdocs") {
 			imports = [
@@ -2255,7 +2255,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-retry/releases/tag/v{version}")
 		}
 	}
-	library("Spring Security", "6.4.0-SNAPSHOT") {
+	library("Spring Security", "6.4.0") {
 		considerSnapshots()
 		group("org.springframework.security") {
 			imports = [
