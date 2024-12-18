@@ -290,7 +290,7 @@ bom {
 			]
 		}
 	}
-	library("Dependency Management Plugin", "1.1.6") {
+	library("Dependency Management Plugin", "1.1.7") {
 		group("io.spring.gradle") {
 			modules = [
 				"dependency-management-plugin"
@@ -1580,7 +1580,7 @@ bom {
 			releaseNotes("https://github.com/neo4j/neo4j-java-driver/releases/tag/{version}")
 		}
 	}
-	library("Netty", "4.1.115.Final") {
+	library("Netty", "4.1.116.Final") {
 		group("io.netty") {
 			imports = [
 				"netty-bom"
@@ -1715,7 +1715,7 @@ bom {
 			releaseNotes("https://pulsar.apache.org/release-notes/versioned/pulsar-{version}")
 		}
 	}
-	library("Pulsar Reactive", "0.5.9") {
+	library("Pulsar Reactive", "0.5.10") {
 		group("org.apache.pulsar") {
 			modules = [
 				"pulsar-client-reactive-adapter",
@@ -2098,7 +2098,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-amqp/releases/tag/v{version}")
 		}
 	}
-	library("Spring Authorization Server", "1.4.1-SNAPSHOT") {
+	library("Spring Authorization Server", "1.4.1") {
 		considerSnapshots()
 		group("org.springframework.security") {
 			modules = [
@@ -2218,7 +2218,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-integration/releases/tag/v{version}")
 		}
 	}
-	library("Spring Kafka", "3.3.1-SNAPSHOT") {
+	library("Spring Kafka", "3.3.1") {
 		considerSnapshots()
 		group("org.springframework.kafka") {
 			modules = [
@@ -2256,7 +2256,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-ldap/releases/tag/{version}")
 		}
 	}
-	library("Spring Pulsar", "1.2.1-SNAPSHOT") {
+	library("Spring Pulsar", "1.2.1") {
 		considerSnapshots()
 		group("org.springframework.pulsar") {
 			imports = [
