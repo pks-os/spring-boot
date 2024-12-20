@@ -514,7 +514,7 @@ bom {
 			releaseNotes("https://github.com/hazelcast/hazelcast/releases/tag/v{version}")
 		}
 	}
-	library("Hibernate", "6.6.3.Final") {
+	library("Hibernate", "6.6.4.Final") {
 		group("org.hibernate.orm") {
 			modules = [
 				"hibernate-agroal",
@@ -2115,7 +2115,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-authorization-server/releases/tag/{version}")
 		}
 	}
-	library("Spring Batch", "5.2.1-SNAPSHOT") {
+	library("Spring Batch", "5.2.1") {
 		considerSnapshots()
 		group("org.springframework.batch") {
 			imports = [
