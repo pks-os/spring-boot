@@ -1442,7 +1442,7 @@ bom {
 			releaseNotes("https://github.com/apache/maven-war-plugin/releases/tag/maven-war-plugin-{version}")
 		}
 	}
-	library("Micrometer", "1.14.2") {
+	library("Micrometer", "1.15.0-SNAPSHOT") {
 		considerSnapshots()
 		group("io.micrometer") {
 			modules = [
@@ -1466,7 +1466,7 @@ bom {
 			releaseNotes("https://github.com/micrometer-metrics/micrometer/releases/tag/v{version}")
 		}
 	}
-	library("Micrometer Tracing", "1.4.1") {
+	library("Micrometer Tracing", "1.5.0-SNAPSHOT") {
 		considerSnapshots()
 		group("io.micrometer") {
 			imports = [
@@ -1875,7 +1875,7 @@ bom {
 			]
 		}
 	}
-	library("Reactor Bom", "2024.0.1") {
+	library("Reactor Bom", "2024.0.2-SNAPSHOT") {
 		considerSnapshots()
 		calendarName = "Reactor"
 		group("io.projectreactor") {
@@ -2080,7 +2080,7 @@ bom {
 			]
 		}
 	}
-	library("Spring AMQP", "3.2.1") {
+	library("Spring AMQP", "3.2.2-SNAPSHOT") {
 		considerSnapshots()
 		group("org.springframework.amqp") {
 			imports = [
@@ -2131,7 +2131,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-batch/releases/tag/v{version}")
 		}
 	}
-	library("Spring Data Bom", "2024.1.1") {
+	library("Spring Data Bom", "2024.1.2-SNAPSHOT") {
 		considerSnapshots()
 		calendarName = "Spring Data Release"
 		group("org.springframework.data") {
@@ -2200,7 +2200,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-hateoas/releases/tag/{version}")
 		}
 	}
-	library("Spring Integration", "6.4.1") {
+	library("Spring Integration", "6.5.0-SNAPSHOT") {
 		considerSnapshots()
 		group("org.springframework.integration") {
 			imports = [
@@ -2217,7 +2217,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-integration/releases/tag/v{version}")
 		}
 	}
-	library("Spring Kafka", "3.3.1") {
+	library("Spring Kafka", "3.3.2-SNAPSHOT") {
 		considerSnapshots()
 		group("org.springframework.kafka") {
 			modules = [
@@ -2235,7 +2235,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-kafka/releases/tag/v{version}")
 		}
 	}
-	library("Spring LDAP", "3.2.10") {
+	library("Spring LDAP", "3.3.0-SNAPSHOT") {
 		considerSnapshots()
 		group("org.springframework.ldap") {
 			modules = [
@@ -2255,7 +2255,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-ldap/releases/tag/{version}")
 		}
 	}
-	library("Spring Pulsar", "1.2.1") {
+	library("Spring Pulsar", "1.2.2-SNAPSHOT") {
 		considerSnapshots()
 		group("org.springframework.pulsar") {
 			imports = [
@@ -2302,7 +2302,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-retry/releases/tag/v{version}")
 		}
 	}
-	library("Spring Security", "6.4.2") {
+	library("Spring Security", "6.5.0-SNAPSHOT") {
 		considerSnapshots()
 		group("org.springframework.security") {
 			imports = [
