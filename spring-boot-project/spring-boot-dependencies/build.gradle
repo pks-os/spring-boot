@@ -13,7 +13,7 @@ bom {
 			issueLabels = ["type: dependency-upgrade"]
 		}
 	}
-	library("ActiveMQ", "6.1.4") {
+	library("ActiveMQ", "6.1.5") {
 		group("org.apache.activemq") {
 			modules = [
 					"activemq-console" {
@@ -360,7 +360,7 @@ bom {
 			javadoc("elasticsearch-rest-client-sniffer", version -> "https://artifacts.elastic.co/javadoc/org/elasticsearch/client/elasticsearch-rest-client-sniffer/%s".formatted(version), "org.elasticsearch.client.sniff")
 		}
 	}
-	library("Flyway", "11.1.0") {
+	library("Flyway", "11.1.1") {
 		group("org.flywaydb") {
 			modules = [
 				"flyway-commandline",
@@ -576,7 +576,7 @@ bom {
 			]
 		}
 	}
-	library("HtmlUnit", "4.7.0") {
+	library("HtmlUnit", "4.8.0") {
 		group("org.htmlunit") {
 			modules = [
 				"htmlunit" {
@@ -615,7 +615,7 @@ bom {
 			]
 		}
 	}
-	library("HttpCore5", "5.3.1") {
+	library("HttpCore5", "5.3.2") {
 		group("org.apache.httpcomponents.core5") {
 			modules = [
 				"httpcore5",
@@ -968,7 +968,7 @@ bom {
 			releaseNotes("https://github.com/redis/jedis/releases/tag/v{version}")
 		}
 	}
-	library("Jersey", "3.1.9") {
+	library("Jersey", "3.1.10") {
 		group("org.glassfish.jersey") {
 			imports = [
 				"jersey-bom"
@@ -1011,7 +1011,7 @@ bom {
 			]
 		}
 	}
-	library("jOOQ", "3.19.16") {
+	library("jOOQ", "3.19.17") {
 		group("org.jooq") {
 			modules = [
 				"jooq",
@@ -1442,7 +1442,7 @@ bom {
 			releaseNotes("https://github.com/apache/maven-war-plugin/releases/tag/maven-war-plugin-{version}")
 		}
 	}
-	library("Micrometer", "1.15.0-SNAPSHOT") {
+	library("Micrometer", "1.15.0-M1") {
 		considerSnapshots()
 		group("io.micrometer") {
 			modules = [
@@ -1466,7 +1466,7 @@ bom {
 			releaseNotes("https://github.com/micrometer-metrics/micrometer/releases/tag/v{version}")
 		}
 	}
-	library("Micrometer Tracing", "1.5.0-SNAPSHOT") {
+	library("Micrometer Tracing", "1.5.0-M1") {
 		considerSnapshots()
 		group("io.micrometer") {
 			imports = [
@@ -1591,7 +1591,7 @@ bom {
 			javadoc(version -> "https://netty.io/%s.%s/api".formatted(version.major(), version.minor()), "io.netty")
 		}
 	}
-	library("OpenTelemetry", "1.45.0") {
+	library("OpenTelemetry", "1.46.0") {
 		group("io.opentelemetry") {
 			imports = [
 				"opentelemetry-bom"
@@ -2484,7 +2484,7 @@ bom {
 			releaseNotes("https://github.com/mojohaus/versions/releases/tag/{version}")
 		}
 	}
-	library("Vibur", "25.0") {
+	library("Vibur", "26.0") {
 		group("org.vibur") {
 			modules = [
 					"vibur-dbcp",
