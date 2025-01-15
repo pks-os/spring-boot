@@ -14,25 +14,30 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus;
+package org.springframework.boot.autoconfigure.gson;
 
+import java.util.List;
+import java.util.stream.Stream;
+
+import com.google.gson.Strictness;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link PrometheusProperties}.
+ * Tests for {@link GsonProperties}.
  *
- * @author Stephane Nicoll
+ * @author Andy Wilkinson
  */
-class PrometheusPropertiesTests {
+class GsonPropertiesTests {
 
 	@Test
-	void defaultValuesAreConsistent() {
-		PrometheusProperties properties = new PrometheusProperties();
-		io.micrometer.prometheusmetrics.PrometheusConfig config = io.micrometer.prometheusmetrics.PrometheusConfig.DEFAULT;
-		assertThat(properties.isDescriptions()).isEqualTo(config.descriptions());
-		assertThat(properties.getStep()).isEqualTo(config.step());
+	void valuesOfOurStrictnessMatchValuesOfGsonsStrictness() {
+		assertThat(namesOf(GsonProperties.Strictness.values())).isEqualTo(namesOf(Strictness.values()));
+	}
+
+	private List<String> namesOf(Enum<?>[] input) {
+		return Stream.of(input).map(Enum::name).toList();
 	}
 
 }
