@@ -254,7 +254,7 @@ bom {
 			site("https://commons.apache.org/proper/commons-pool")
 		}
 	}
-	library("Couchbase Client", "3.7.6") {
+	library("Couchbase Client", "3.7.7") {
 		group("com.couchbase.client") {
 			modules = [
 				"java-client"
@@ -1011,7 +1011,7 @@ bom {
 			]
 		}
 	}
-	library("jOOQ", "3.19.17") {
+	library("jOOQ", "3.19.18") {
 		group("org.jooq") {
 			modules = [
 				"jooq",
@@ -1580,7 +1580,7 @@ bom {
 			releaseNotes("https://github.com/neo4j/neo4j-java-driver/releases/tag/{version}")
 		}
 	}
-	library("Netty", "4.1.116.Final") {
+	library("Netty", "4.1.117.Final") {
 		group("io.netty") {
 			imports = [
 				"netty-bom"
@@ -1668,7 +1668,7 @@ bom {
 			javadoc("https://javadoc.io/doc/org.messaginghub/pooled-jms/{version}", "org.messaginghub.pooled.jms")
 		}
 	}
-	library("Postgresql", "42.7.4") {
+	library("Postgresql", "42.7.5") {
 		group("org.postgresql") {
 			modules = [
 				"postgresql"
@@ -2357,7 +2357,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-ws/releases/tag/v{version}")
 		}
 	}
-	library("SQLite JDBC", "3.47.2.0") {
+	library("SQLite JDBC", "3.48.0.0") {
 		group("org.xerial") {
 			modules = [
 				"sqlite-jdbc"
