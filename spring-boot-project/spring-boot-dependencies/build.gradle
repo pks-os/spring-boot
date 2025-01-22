@@ -137,7 +137,7 @@ bom {
 			releaseNotes("https://github.com/mojohaus/build-helper-maven-plugin/releases/tag/{version}")
 		}
 	}
-	library("Byte Buddy", "1.15.11") {
+	library("Byte Buddy", "1.16.1") {
 		group("net.bytebuddy") {
 			modules = [
 				"byte-buddy",
@@ -166,7 +166,7 @@ bom {
 			releaseNotes("https://github.com/cache2k/cache2k/releases/tag/v{version}")
 		}
 	}
-	library("Caffeine", "3.1.8") {
+	library("Caffeine", "3.2.0") {
 		group("com.github.ben-manes.caffeine") {
 			modules = [
 				"caffeine",
@@ -360,7 +360,7 @@ bom {
 			javadoc("elasticsearch-rest-client-sniffer", version -> "https://artifacts.elastic.co/javadoc/org/elasticsearch/client/elasticsearch-rest-client-sniffer/%s".formatted(version), "org.elasticsearch.client.sniff")
 		}
 	}
-	library("Flyway", "11.1.1") {
+	library("Flyway", "11.2.0") {
 		group("org.flywaydb") {
 			modules = [
 				"flyway-commandline",
@@ -514,7 +514,7 @@ bom {
 			releaseNotes("https://github.com/hazelcast/hazelcast/releases/tag/v{version}")
 		}
 	}
-	library("Hibernate", "6.6.4.Final") {
+	library("Hibernate", "6.6.5.Final") {
 		group("org.hibernate.orm") {
 			modules = [
 				"hibernate-agroal",
@@ -624,7 +624,7 @@ bom {
 			]
 		}
 	}
-	library("Infinispan", "15.1.3.Final") {
+	library("Infinispan", "15.1.4.Final") {
 		group("org.infinispan") {
 			imports = [
 				"infinispan-bom"
@@ -1203,7 +1203,7 @@ bom {
 			releaseNotes("https://github.com/lettuce-io/lettuce-core/releases/tag/{version}")
 		}
 	}
-	library("Liquibase", "4.30.0") {
+	library("Liquibase", "4.31.0") {
 		group("org.liquibase") {
 			modules = [
 				"liquibase-cdi",
@@ -1531,7 +1531,7 @@ bom {
 				.formatted(version.toString().replace(".jre11", "")))
 		}
 	}
-	library("MySQL", "9.1.0") {
+	library("MySQL", "9.2.0") {
 		group("com.mysql") {
 			modules = [
 				"mysql-connector-j" {
@@ -1704,7 +1704,7 @@ bom {
 			releaseNotes("https://github.com/prometheus/client_java/releases/tag/parent-{version}")
 		}
 	}
-	library("Pulsar", "3.3.3") {
+	library("Pulsar", "3.3.4") {
 		group("org.apache.pulsar") {
 			imports = [
 				"pulsar-bom"
@@ -2022,7 +2022,7 @@ bom {
 			]
 		}
 	}
-	library("Selenium", "4.27.0") {
+	library("Selenium", "4.28.0") {
 		group("org.seleniumhq.selenium") {
 			imports = [
 				"selenium-bom"
@@ -2080,7 +2080,7 @@ bom {
 			]
 		}
 	}
-	library("Spring AMQP", "3.2.2-SNAPSHOT") {
+	library("Spring AMQP", "3.2.2") {
 		considerSnapshots()
 		group("org.springframework.amqp") {
 			imports = [
@@ -2217,7 +2217,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-integration/releases/tag/v{version}")
 		}
 	}
-	library("Spring Kafka", "3.3.2-SNAPSHOT") {
+	library("Spring Kafka", "3.3.2") {
 		considerSnapshots()
 		group("org.springframework.kafka") {
 			modules = [
@@ -2235,7 +2235,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-kafka/releases/tag/v{version}")
 		}
 	}
-	library("Spring LDAP", "3.3.0-SNAPSHOT") {
+	library("Spring LDAP", "3.3.0-M1") {
 		considerSnapshots()
 		group("org.springframework.ldap") {
 			modules = [
@@ -2302,7 +2302,7 @@ bom {
 			releaseNotes("https://github.com/spring-projects/spring-retry/releases/tag/v{version}")
 		}
 	}
-	library("Spring Security", "6.5.0-SNAPSHOT") {
+	library("Spring Security", "6.5.0-M1") {
 		considerSnapshots()
 		group("org.springframework.security") {
 			imports = [
