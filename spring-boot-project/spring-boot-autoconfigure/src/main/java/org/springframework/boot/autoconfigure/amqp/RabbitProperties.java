@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2024 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ import org.springframework.util.unit.DataSize;
  * @author Yanming Zhou
  * @since 1.0.0
  */
-@ConfigurationProperties(prefix = "spring.rabbitmq")
+@ConfigurationProperties("spring.rabbitmq")
 public class RabbitProperties {
 
 	private static final int DEFAULT_PORT = 5672;
@@ -575,7 +575,7 @@ public class RabbitProperties {
 			this.validateServerCertificate = validateServerCertificate;
 		}
 
-		public boolean getVerifyHostname() {
+		public boolean isVerifyHostname() {
 			return this.verifyHostname;
 		}
 
